@@ -51,9 +51,9 @@ const SignInButton = (props) => {
         isSubmitting || !formVal.email || !formVal.password
         // This is intentional, I do not wish to use isValid here
       }
-      sx={{
-        background: COLORS.primaryButton,
-      }}
+      // sx={{
+      //   background: COLORS.primaryButton,
+      // }}
       loading={isSubmitting}
     >
       Login

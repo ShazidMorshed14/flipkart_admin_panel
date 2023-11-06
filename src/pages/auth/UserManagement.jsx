@@ -1,12 +1,7 @@
 import React from "react";
-import MantineCrudTable from "../global/MantineCrudTable";
 
 const UserManagement = () => {
-  return (
-    <div>
-      <MantineCrudTable />
-    </div>
-  );
+  return <div>Users Panel</div>;
 };
 
 export default UserManagement;

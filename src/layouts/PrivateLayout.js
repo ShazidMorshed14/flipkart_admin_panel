@@ -69,7 +69,7 @@ const PrivateLayout = () => {
                 href={user?.profileUrl}
                 target="_blank"
               >
-                <Flex position="apart" w="100%">
+                <Flex position="apart" w="100%" align="center">
                   <Avatar bg="#161616" color="#fff" src={user?.avatar} />
                   <Space w="sm" />
                   <Text size="sm" weight="bold">
