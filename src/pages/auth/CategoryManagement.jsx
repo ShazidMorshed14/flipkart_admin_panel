@@ -1,13 +1,16 @@
 import { Button, Flex, Loader, Stack, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import COLORS from "../../constants/colors";
 import { IconPlus } from "@tabler/icons-react";
 import { fetchCategoriesPageless } from "../../services/categories";
 import ServerErrorBox from "../../components/Global/ServerErrorBox";
 import { isArrayAndHasContent } from "../../utils/utils";
+import AddCategoryModal from "../../components/Modals/AddCategoryModal";
 
 const CategoryManagement = () => {
+  const [addCategoryModal, setAddCategoryModal] = useState(false);
+
   //fetching patient only
   const { data, isLoading, error, isFetching, refetch } = useQuery({
     queryKey: ["fetch-categories-pageless"],
@@ -73,13 +76,20 @@ const CategoryManagement = () => {
 
   return (
     <div>
+      {/* add modal */}
+      <AddCategoryModal
+        addCategoryModal={addCategoryModal}
+        setAddCategoryModal={setAddCategoryModal}
+        refetchCategories={refetch}
+      />
+
       <Flex w="100%" justify="space-between" align="center" my="sm">
         <Text weight="bold" fz="md" color={COLORS.fontPrimary}>
           Category Management
         </Text>
         <Flex gap={10}>
           <Button
-            //onClick={addDrawerOpen}
+            onClick={() => setAddCategoryModal(true)}
             className="primary_btn"
             leftIcon={<IconPlus />}
             size="xs"
