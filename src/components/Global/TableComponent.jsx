@@ -1,4 +1,4 @@
-import { Box, ScrollArea, Table } from "@mantine/core";
+import { Box, ScrollArea, Stack, Table } from "@mantine/core";
 import React from "react";
 import { isArrayAndHasContent } from "../../utils/utils";
 import NoDataPlaceholder from "./NoDataPlaceholder";
@@ -8,29 +8,26 @@ const TableComponent = ({ ths, rows, data, tableHeight }) => {
   return (
     <>
       {isArrayAndHasContent(data) ? (
-        <ScrollArea h={tableHeight ? tableHeight : "68vh"}>
-          <Table highlightOnHover verticalSpacing="md">
-            <thead
-              style={{
-                position: "sticky",
-                top: 0,
-                zIndex: 1,
-                backgroundColor: "white",
-              }}
-            >
-              {ths}
-            </thead>
+        <ScrollArea h={tableHeight ? tableHeight : "78vh"}>
+          <Table
+            highlightOnHover
+            verticalSpacing="md"
+            stickyHeader
+            withBorder
+            withColumnBorders
+          >
+            <thead>{ths}</thead>
             <tbody>{rows}</tbody>
           </Table>
         </ScrollArea>
       ) : (
-        <Box mih="70vh">
+        <Stack mih="78vh" align="center" justify="center">
           <NoDataPlaceholder
             title="No Items found"
             subtext={" "}
             icon={<IconPackageOff size={70} color="#4562f7" />}
           />
-        </Box>
+        </Stack>
       )}
     </>
   );

@@ -34,7 +34,7 @@ const SearchInput = ({
     <Stack>
       <Input
         value={searchKey}
-        size="xs"
+        //size="xs"
         icon={<IconSearch />}
         placeholder={placeholder}
         mr={20}
