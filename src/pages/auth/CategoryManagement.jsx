@@ -4,6 +4,7 @@ import {
   Flex,
   Image,
   Loader,
+  LoadingOverlay,
   Modal,
   Stack,
   Text,
@@ -110,6 +111,12 @@ const CategoryManagement = () => {
 
   return (
     <div>
+      <LoadingOverlay
+        visible={isFetching}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+      />
+
       {/* add modal */}
       <Modal
         opened={addCategoryModal}

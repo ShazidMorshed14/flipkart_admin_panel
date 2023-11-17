@@ -239,12 +239,14 @@ const EditCategory = ({ onClose, onUpdate, defaultValues }) => {
               withinPortal
               disabled={isFetching}
               data={
-                data?.data?.data.map((category) => {
-                  return {
-                    label: category.name,
-                    value: category._id,
-                  };
-                }) || []
+                data?.data?.data
+                  ?.filter((cat) => cat._id !== defaultValues._id)
+                  .map((category) => {
+                    return {
+                      label: category.name,
+                      value: category._id,
+                    };
+                  }) || []
               }
               {...form.getInputProps("parentId")}
             />
