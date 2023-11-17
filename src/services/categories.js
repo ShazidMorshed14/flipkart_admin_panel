@@ -13,3 +13,32 @@ export const fetchCategoriesPageless = async (context) => {
   });
   return response;
 };
+
+export const fetchCategoriesList = async () => {
+  const response = await axios().get("/category/list");
+  return response;
+};
+
+export const addNewCategory = async (formData) => {
+  const config = {
+    headers: { "content-type": "multipart/form-data" },
+  };
+
+  const response = await axios().post("/category/create", formData, config);
+
+  return response;
+};
+
+export const updateCategory = async (formData, id) => {
+  const config = {
+    headers: { "content-type": "multipart/form-data" },
+  };
+
+  const response = await axios().put(
+    `/category/update/${id}`,
+    formData,
+    config
+  );
+
+  return response;
+};

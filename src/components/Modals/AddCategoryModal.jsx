@@ -8,10 +8,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { isArrayAndHasContent } from "../../utils/utils";
 import { NotificationUtil } from "../../utils/notifications";
+import { fetchCategoriesList } from "../../services/categories";
 
 const AddCategoryModal = ({
   addCategoryModal,
@@ -32,6 +33,15 @@ const AddCategoryModal = ({
       name: (value) =>
         value.length < 1 ? "Category Name must be given" : null,
     },
+  });
+
+  //fetching patient only
+  const { data, isLoading, error, isFetching, refetch } = useQuery({
+    queryKey: ["fetch-categories-list"],
+    queryFn: fetchCategoriesList,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+    retry: false,
   });
 
   const handleFileChange = (selectedFiles) => {
@@ -61,7 +71,7 @@ const AddCategoryModal = ({
     }
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = (values) => {
     //e.preventDefault()
     //addCategoryMutate(values);
 
@@ -69,15 +79,19 @@ const AddCategoryModal = ({
     let apiFormData = new FormData();
 
     // Append each file to the FormData
-    // files.forEach((file, index) => {
-    //   apiFormData.append("images", file);
-    // });
+    files.forEach((file, index) => {
+      apiFormData.append("images", file);
+    });
+
+    //console.log(values);
 
     apiFormData.append("name", values.name);
     apiFormData.append("parentId", values.parentId);
 
     console.log(apiFormData);
   };
+
+  console.log(data?.data);
 
   return (
     <Modal
@@ -103,17 +117,16 @@ const AddCategoryModal = ({
           py="sm"
           accept="image/*"
           onChange={handleFileChange}
-          maxFiles={1}
         />
 
         <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
           <Flex direction="column" justify="space-between" gap={10}>
             <div>
               <TextInput
+                name="name"
                 placeholder="Ex. Mobile "
                 label="Category Name"
                 size="xs"
-                required
                 withAsterisk
                 {...form.getInputProps("name")}
               />
