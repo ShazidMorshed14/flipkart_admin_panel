@@ -22,6 +22,7 @@
     "axios": "^1.3.4",
     "dayjs": "^1.11.10",
     "env-cmd": "^10.1.0",
+    "jodit-react": "^1.3.39",
     "mantine-react-table": "^1.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

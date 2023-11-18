@@ -70,6 +70,17 @@ const ProductTable = ({
                     <Text color="yellow" fw={600} fz="xs">
                       Slug: {product?.slug}
                     </Text>
+                    <div>
+                      <Text fw={600} py="xs">
+                        Product Description:
+                      </Text>
+                      <div
+                        style={{ maxWidth: "400px" }}
+                        dangerouslySetInnerHTML={{
+                          __html: product?.description,
+                        }}
+                      />
+                    </div>
                   </Flex>
                 </HoverCard.Dropdown>
               </HoverCard>

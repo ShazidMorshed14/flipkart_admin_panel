@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   Loader,
+  Modal,
   Pagination,
   Select,
   Stack,
@@ -24,6 +25,7 @@ import { fetchProducts } from "../../services/products";
 import ServerErrorBox from "../../components/Global/ServerErrorBox";
 import ShowItems from "../../components/Global/ShowItems";
 import ProductTable from "../../components/Tables/ProductTable";
+import AddProduct from "../../components/Forms/AddProduct";
 
 const ProductManagement = () => {
   const [page, setPage] = useState(1);
@@ -35,6 +37,9 @@ const ProductManagement = () => {
 
   const [invokingRefreshForSearchInput, setInvokingRefreshForSearchInput] =
     useState(null);
+
+  //modal states
+  const [addProductModal, setAddProductModal] = useState(false);
 
   const handleName = (value) => {
     setPage(1);
@@ -142,13 +147,41 @@ const ProductManagement = () => {
 
   return (
     <div>
+      {/* add modal */}
+      <Modal
+        opened={addProductModal}
+        onClose={() => setAddProductModal(false)}
+        title={<Text fw="600">Add Product</Text>}
+        centered
+        styles={() => ({
+          title: {
+            fontSize: "24px",
+            fontWeight: "bold",
+          },
+          body: {
+            minWidth: "80vw",
+          },
+        })}
+        size="auto"
+      >
+        <AddProduct
+          onClose={() => {
+            setAddProductModal(false);
+          }}
+          onUpdate={() => {
+            setAddProductModal(false);
+            refetch();
+          }}
+        />
+      </Modal>
+
       <Flex w="100%" justify="space-between" align="center" my="sm">
         <Text weight="bold" fz="md" color={COLORS.fontPrimary}>
           Product Management
         </Text>
         <Flex gap={10}>
           <Button
-            //onClick={() => setAddCategoryModal(true)}
+            onClick={() => setAddProductModal(true)}
             className="primary_btn"
             leftIcon={<IconPlus />}
             size="xs"
