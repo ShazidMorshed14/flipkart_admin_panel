@@ -1,4 +1,4 @@
-import { Flex, Grid, Text } from "@mantine/core";
+import { Badge, Flex, Grid, Text } from "@mantine/core";
 import React from "react";
 import PictureSlider from "../Global/PictureSlider";
 
@@ -41,6 +41,15 @@ const ProductDetails = ({ product }) => {
                 }}
               />
             </div>
+
+            <Flex gap={20} py="xs">
+              <Badge size="xl" color="yellow">
+                Price: {product?.price || 0} BDT
+              </Badge>
+              <Badge size="xl" color="yellow">
+                Quantity: {product?.quantity || 0}
+              </Badge>
+            </Flex>
           </Flex>
         </Grid.Col>
         <Grid.Col
