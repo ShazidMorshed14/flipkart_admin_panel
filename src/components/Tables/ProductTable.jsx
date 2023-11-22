@@ -24,11 +24,7 @@ import {
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
-const ProductTable = ({
-  data,
-  handleSelectItem,
-  handleAssignPlatoformDrawer,
-}) => {
+const ProductTable = ({ data, handleSelectItem, setProductDetailsModal }) => {
   const navigate = useNavigate();
 
   const ths = (
@@ -37,6 +33,7 @@ const ProductTable = ({
       <th>Images</th>
       <th>Category</th>
       <th>Price</th>
+      <th>Quantity</th>
       <th>Status</th>
       <th>Created By</th>
       <th>Created At</th>
@@ -57,7 +54,11 @@ const ProductTable = ({
             <Flex gap={5} align="center" wrap="wrap">
               <HoverCard key={index} maxWidth={500} shadow="md">
                 <HoverCard.Target>
-                  <Text fw={600}>{product?.name}</Text>
+                  <Text fw={600} fz="xs">
+                    {product?.name && product?.name.length > 12
+                      ? `${product?.name.slice(0, 20)}...`
+                      : "N/A"}
+                  </Text>
                 </HoverCard.Target>
                 <HoverCard.Dropdown>
                   <Text size="sm" py="sm" fw={600}>
@@ -111,6 +112,11 @@ const ProductTable = ({
       <td>
         <Text fw={600} fz="md" align="center">
           {product?.price || 0} BDT
+        </Text>
+      </td>
+      <td>
+        <Text fw={600} fz="md" align="center">
+          {product?.quantity || 0}
         </Text>
       </td>
       <td>
@@ -173,7 +179,10 @@ const ProductTable = ({
             <ActionIcon
               variant="light"
               color="teal"
-              onClick={() => handleSelectItem(product)}
+              onClick={() => {
+                handleSelectItem(product);
+                setProductDetailsModal(true);
+              }}
             >
               <IconEye size={16} />
             </ActionIcon>

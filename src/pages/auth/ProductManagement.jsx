@@ -26,6 +26,7 @@ import ServerErrorBox from "../../components/Global/ServerErrorBox";
 import ShowItems from "../../components/Global/ShowItems";
 import ProductTable from "../../components/Tables/ProductTable";
 import AddProduct from "../../components/Forms/AddProduct";
+import ProductDetails from "../../components/Forms/ProductDetails";
 
 const ProductManagement = () => {
   const [page, setPage] = useState(1);
@@ -40,6 +41,13 @@ const ProductManagement = () => {
 
   //modal states
   const [addProductModal, setAddProductModal] = useState(false);
+  const [productDetailsModal, setProductDetailsModal] = useState(false);
+  const [editProductModal, setEditProductModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleSelectItem = (value) => {
+    setSelectedItem(value);
+  };
 
   const handleName = (value) => {
     setPage(1);
@@ -175,6 +183,29 @@ const ProductManagement = () => {
         />
       </Modal>
 
+      {/* product details modal */}
+      <Modal
+        opened={productDetailsModal && selectedItem}
+        onClose={() => {
+          setSelectedItem(null);
+          setProductDetailsModal(false);
+        }}
+        title={<Text fw="600">Product Details</Text>}
+        centered
+        styles={() => ({
+          title: {
+            fontSize: "24px",
+            fontWeight: "bold",
+          },
+          body: {
+            minWidth: "80vw",
+          },
+        })}
+        size="auto"
+      >
+        <ProductDetails product={selectedItem} />
+      </Modal>
+
       <Flex w="100%" justify="space-between" align="center" my="sm">
         <Text weight="bold" fz="md" color={COLORS.fontPrimary}>
           Product Management
@@ -282,8 +313,8 @@ const ProductManagement = () => {
           <>
             <ProductTable
               data={products}
-              //handleSelectItem={handleSelectItem}
-              //handleAssignPlatoformDrawer={handleAssignPlatoformDrawer}
+              handleSelectItem={handleSelectItem}
+              setProductDetailsModal={setProductDetailsModal}
             />
             <Flex justify="space-between" align="center">
               <ShowItems
